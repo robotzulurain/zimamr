@@ -1,1 +1,1 @@
-web: gunicorn amr_project.wsgi --log-file -
+web: gunicorn amr_project.wsgi
