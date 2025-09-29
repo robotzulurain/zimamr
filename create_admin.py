@@ -4,7 +4,7 @@ import django
 from django.contrib.auth import get_user_model
 
 # adjust this if your project package name is not "amr_app"
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "amr_app.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "amr_project.settings")
 django.setup()
 
 User = get_user_model()

@@ -96,3 +96,34 @@ CSRF_TRUSTED_ORIGINS = [
     "http://127.0.0.1:5173",
 ]
 
+# --- deployment additions (added by deploy helper) ---
+import os
+from pathlib import Path
+import dj_database_url
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Read secret from env (do NOT commit real secret)
+SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key")
+
+# Allowed hosts via env var, comma-separated
+ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS", "localhost").split(",")
+
+# DATABASE: use DATABASE_URL (Neon)
+DATABASES = {
+    "default": dj_database_url.parse(
+        os.environ.get("DATABASE_URL"),
+        conn_max_age=600,
+        ssl_require=True
+    )
+}
+
+# Static files for production
+STATIC_URL = "/static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
+
+# CORS allowed origins from env (comma separated)
+CORS_ALLOWED_ORIGINS = [
+    u.strip() for u in os.environ.get("CORS_ALLOWED_ORIGINS", "").split(",") if u.strip()
+]
+# --- end deployment additions ---
